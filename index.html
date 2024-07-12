@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balbe.finance$</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <title>dev.finance$</title>
+    <header>
+        <img src="./assets/logo.svg" alt="logo dev.finances">
+<div class="maincontainer">
+   
+    <div id="box-entradas" class="caixas">
+        <div class="tituloIcone">
+        <h3>Entradas</h3>
+        <img src="./assets/income.svg" alt="Imagem de entradas"> </div>
+       <div class="valores"><h1 id="entradaH1">R$ 0,00</h1></div>          
+    </div>
+    
+    <div id="box-saidas" class="caixas">
+        <div class="tituloIcone">
+        <h3>Saídas</h3>
+        <img src="./assets/expense.svg" alt="Imagem de saídas">  
+    </div>
+        <div class="valores"><h1 id="saidaH1">R$ 0,00</h1></div>           
+    </div>
+    
+    <div id="box-total" class="caixas">
+        <div class="tituloIcone">
+        <h3>Total</h3>
+        <img src="./assets/total.svg" alt="Imagem de total">
+    </div>
+        <div class="valores"><h1 id="totalH1">R$ 0,00</h1></div>   
+    </div>    
+    
+</header>
+    <div id="items">
+    <a href="#" id="openPopupBtn">+ Nova transação</a>
+        <div class="popup-overlay" id="popupOverlay"></div>
+
+        <div class="popup" id="popupForm">
+            <h2>Nova Transação</h2>
+            <form name="lancamento" id="dataForm">
+                <label for="desc">Descrição</label>
+                <input type="text" id="desc" name="name" placeholder="Ex: Compra no supermercado" required><br><br>
+                <label for="valor">Valor</label>
+                <H5>Use o sinal - (negativo) para despesas e , (vírgula) para casas decimais</H5>
+                <input type="number" id="valor" name="valorMoeda" placeholder="R$ 0,00" required><br><br>
+                <label for="data">Data</label>
+                <input type="date" id="data" required><br><br>
+                <div id="botoes">
+                <button type="button" id="salvarPopupBtn">Salvar</button>
+                <button type="button" id="cancelarPopupBtn">Cancelar</button>
+            </div>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="itens">
+                    <!-- <td>Pão</td>
+                    <td>2</td>
+                    <td>10/20/21</td>
+                    <td><button class="text-red-700 delete">ⅹ</button></td> -->
+                </tr>
+             
+            </tbody>
+        </table>
+    </div>
+</div>
+    </body>
+    <footer>
+        <p>dev.finance$</p>
+      </footer>
+  
+      <script src="script.js"></script>
+</html>
+
+ 
