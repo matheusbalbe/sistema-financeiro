@@ -79,7 +79,12 @@ if (descricao.value === "" || valor.value === "" || data.value === "") {
 
   // Chama a função e armazena a data formatada
   const dataFormatada = formatarData(dataValor);
-  th.innerHTML += `<tr><td>${descricao.value}</td><td>${valor.value}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
+  if (valor.value > 0) {
+    th.innerHTML += `<tr><td>${descricao.value}</td><td id="positivo">${valor.value}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
+  } else if (valor.value < 0) {
+    th.innerHTML += `<tr><td>${descricao.value}</td><td id="negativo">${valor.value}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
+  }
+ 
 
   function resultadoFinal() {
     let total = 0;
