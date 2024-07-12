@@ -29,7 +29,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-O DevLinks é um agregador de links para usar como cartão de visitas online.
+O dev.finance$ é uma aplicação de controle financeiro, em que é possível cadastrar e excluir transações(entrada e saída) e posteriormente visualizar o resultado final durante o período
 
 - [Acesse o projeto finalizado, online](https://matheusbalbe.github.io/sistema-financeiro)
 
