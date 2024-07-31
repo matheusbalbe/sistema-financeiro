@@ -54,128 +54,99 @@ function converterParaReal(numero) {
   numero = `R$ ${numero}`;
   return numero;
 }
+
+function retirarFormatacaoNumero(numeroFormatado) {
+  return parseFloat(
+    numeroFormatado.textContent
+      .replace("R$ ", "")
+      .replace(".", "")
+      .replace(",", ".")
+  );
+}
+
 //Função para calcular os resultados
 function calcularValores() {
-  let total = 0;
+  let entradaTotal = 0;
+  let saidaTotal = 0;
+  let totals = 0;
   const valores = document.querySelectorAll("tbody td:nth-child(2)");
   valores.forEach((valor) => {
-    if (parseFloat(valor.textContent) > 0) {
-      total += parseFloat(valor.textContent);
+    const valorNum = valor;
+    const valorNum2 = retirarFormatacaoNumero(valorNum);
+    totals += valorNum2;
+
+    if (valorNum2 > 0) {
+      entradaTotal += valorNum2;
+    } else if (valorNum2 < 0) {
+      saidaTotal += valorNum2;
     }
   });
+  totalFinal.innerHTML = converterParaReal(totals);
+  entrada.innerHTML = converterParaReal(entradaTotal);
+  saida.innerHTML = converterParaReal(saidaTotal);
 }
 
 // Função para salvar os dados do formulário
-
 salvarPopupBtn.addEventListener("click", function () {
   // Verifica se todos os campos foram preenchidos
-if (descricao.value === "" || valor.value === "" || data.value === "") {
-    alert("Por favor, preencha todos os campos.");
-    return; // Para a execução da função caso algum campo esteja vazio
-}
-    popupOverlay.style.display = "none";
+  // if (descricao.value === "" || valor.value === "" || data.value === "") {
+  //   alert("Por favor, preencha todos os campos.");
+  //   return; // Para a execução da função caso algum campo esteja vazio
+  // }
+  //Fecha o formulário quando é salvo
+  popupOverlay.style.display = "none";
   popupForm.style.display = "none";
   const dataValor = data.value;
 
   // Chama a função e armazena a data formatada
   const dataFormatada = formatarData(dataValor);
-  if (valor.value > 0) {
-    th.innerHTML += `<tr><td>${descricao.value}</td><td id="positivo">${valor.value}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
-  } else if (valor.value < 0) {
-    th.innerHTML += `<tr><td>${descricao.value}</td><td id="negativo">${valor.value}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
+  const valorValue = parseFloat(valor.value);
+  const ValorFormatado = converterParaReal(valorValue);
+  const descricaoValue = descricao.value;
+
+  if (valorValue > 0) {
+    th.innerHTML += `<tr><td>${descricaoValue}</td><td id="positivo">${ValorFormatado}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
+  } else if (valorValue < 0) {
+    th.innerHTML += `<tr><td>${descricaoValue}</td><td id="negativo">${ValorFormatado}</td><td>${dataFormatada}</td><td><img src="./assets/delete.svg" class="delete"></td><tr>`;
   }
- 
 
-  function resultadoFinal() {
-    let total = 0;
-    const valores = document.querySelectorAll("tbody td:nth-child(2)");
-    valores.forEach((valor) => {
-      total += parseFloat(valor.textContent);
-    });
-    let totalFormatado = total.toLocaleString("pt-BR", {
-      currency: "BRL",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    totalFinal.innerHTML = `R$ ${totalFormatado}`;
-    return total;
-  }
-  function resultados() {
-    if (valor.value > 0) {
-      function somaEntrada() {
-        let total = 0;
-        const valores = document.querySelectorAll("tbody td:nth-child(2)");
-        valores.forEach((valor) => {
-          if (parseFloat(valor.textContent) > 0) {
-            total += parseFloat(valor.textContent);
-          }
-        });
-        entrada.innerHTML = converterParaReal(total);
-      }
-      somaEntrada();
-    } else if (valor.value < 0) {
-      function somaSaída() {
-        let total = 0;
-        const valores = document.querySelectorAll("tbody td:nth-child(2)");
-        valores.forEach((valor) => {
-          if (parseFloat(valor.textContent) < 0) {
-            total += parseFloat(valor.textContent);
-          }
-        });
-        saida.innerHTML = converterParaReal(total);
-      }
-      somaSaída();
-    }
-  }
-  function retirarFormatacaoNumero(numeroFormatado) {
-    return parseFloat(
-      numeroFormatado.textContent
-        .replace("R$ ", "")
-        .replace(".", "")
-        .replace(",", ".")
-    );
-  }
-  // Função para deletar um item da tabela
-  th.onclick = function (event) {
-    if (event.target.classList.contains("delete")) {
-      if (confirm("Deseja deletar esse item?")) {
-        // Pega o valor do elemento anterior ao botão de delete
-        let row = event.target.closest("tr");
-        // Seleciona a segunda célula <td> dessa linha
-        let valorCelula = row.querySelector("td:nth-child(2)").textContent;
-        // Converte o valor para o formato de número(retira)
-        let valorExcluido = parseFloat(valorCelula.replace(",", "."));
-        let entradaAtual = retirarFormatacaoNumero (entrada);
-        let saidaAtual = retirarFormatacaoNumero (saida);
-        let totalAtual = retirarFormatacaoNumero(totalFinal) 
-
-        
-        // Calcula o novo total de entrada, saída e do resultado
-        let novoTotalSaida = saidaAtual - valorExcluido;
-        let novoTotalEntrada = entradaAtual - valorExcluido;
-        let novoTotalFinal = totalAtual - valorExcluido;
-
-        if (valorCelula < 0) {
-          saida.innerHTML = converterParaReal(novoTotalSaida);
-          totalFinal.innerHTML = converterParaReal(novoTotalFinal);
-        } else if (valorCelula > 0) {
-          entrada.innerHTML = converterParaReal(novoTotalEntrada);
-          totalFinal.innerHTML = converterParaReal(novoTotalFinal);
-        }
-
-        // Remove o item da tabela
-        event.target.parentElement.parentElement.remove();
-      }
-    }
-  };
-
-  resultados();
-  resultadoFinal();
-  // Chamando a função de soma ao adicionar um novo item na tabela
-  salvarPopupBtn.addEventListener("click", function () {
-    // Resto do código...
-  });
+  calcularValores();
+  //Reseta os valores do formulário
   descricao.value = "";
   data.value = "";
   valor.value = "";
 });
+
+// Função para deletar um item da tabela
+th.onclick = function (event) {
+  if (event.target.classList.contains("delete")) {
+    if (confirm("Deseja deletar esse item?")) {
+      // Pega o valor do elemento anterior ao botão de delete
+      let row = event.target.closest("tr");
+      // Seleciona a segunda célula <td> dessa linha
+      let valorCelula = row.querySelector("td:nth-child(2)");
+      // Converte o valor para o formato de número(retira)
+      let valorDaCelulaFormatado = retirarFormatacaoNumero(valorCelula);
+      let valorExcluido = parseFloat(valorDaCelulaFormatado);
+      let entradaAtual = retirarFormatacaoNumero(entrada);
+      let saidaAtual = retirarFormatacaoNumero(saida);
+      let totalAtual = retirarFormatacaoNumero(totalFinal);
+
+      // Calcula o novo total de entrada, saída e do resultado
+      let novoTotalSaida = saidaAtual - valorExcluido;
+      let novoTotalEntrada = entradaAtual - valorExcluido;
+      let novoTotalFinal = totalAtual - valorExcluido;
+
+      if (valorExcluido < 0) {
+        saida.innerHTML = converterParaReal(novoTotalSaida);
+        totalFinal.innerHTML = converterParaReal(novoTotalFinal);
+      } else if (valorExcluido > 0) {
+        entrada.innerHTML = converterParaReal(novoTotalEntrada);
+        totalFinal.innerHTML = converterParaReal(novoTotalFinal);
+      }
+
+      // Remove o item da tabela
+      event.target.parentElement.parentElement.remove();
+    }
+  }
+};

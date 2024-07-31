@@ -134,28 +134,27 @@ background-color: white;
 
 table{
     background-color: white;
-    /* padding-bottom: 10px; */
     justify-content: center;
     text-decoration: none;
     border-collapse: collapse;
-    /* margin-bottom: 20px; */
-    margin-top: 15px;
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-bottom: 10px;
-    margin-left: auto; /* Alinha à esquerda */
-    margin-right: auto; /* Alinha à direita */
+    margin-top: 10px;
+    border-spacing: 40px ;
+    /* border: 2px solid red */
 }
 th {font-weight: 500;
     font-size: medium;
-    color:#7b7e7a;
+    color:#b3b3b3;
     height: 2.3rem;
-    /* margin-left: 25px; */
+
 
 }
 th, td {
-    padding: 8px;
+    /* padding-left: 25px; */
+    margin-left: 15px;
+    padding: 6px 0px 6px 30px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     background-color: #FFFFFF;
@@ -163,8 +162,9 @@ th, td {
 td {
     justify-content: center;
     font-size: medium;
-    padding-bottom:10px ;
-    margin-left: 5px;
+    border-spacing: 40px ;
+    /* border: 2px solid red; */
+
 }
 
 #positivo {
@@ -230,7 +230,8 @@ input::placeholder {
 }
 input[type="date"] {
     color: var(--cinza);
-    padding-left: 7px;
+    padding-left: 0.7rem;
+    padding-right: 1.5rem;
 }
 h5 {
     font-size: small;
